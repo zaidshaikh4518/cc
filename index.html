@@ -1,185 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practical Code Viewer</title>
     <style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #333;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .card {
-            background-color: #fff;
-            margin: 10px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 250px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .card button {
-            background-color: #007BFF;
-            color: #fff;
-            font-size: 16px;
-            padding: 10px;
-            width: 100%;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .card button:hover {
-            background-color: #0056b3;
-        }
-
-        .code-container {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #333;
-            color: #fff;
-            font-family: "Courier New", Courier, monospace;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            border-radius: 5px;
-            display: none;
-            width: 100%;
-        }
-
-        .copy-btn {
-            background-color: #28a745;
-            color: #fff;
-            padding: 10px 15px;
-            margin-top: 10px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            display: none;
-        }
-
-        .copy-btn:hover {
-            background-color: #218838;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        color: #E0E0E0;
+        padding: 40px;
+        line-height: 1.6;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: #fff;
+        font-size: 2.5rem;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+      .card {
+        background-color: #1F1F1F;
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #333;
+      }
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      }
+      .card button {
+        background-color: #4A4A4A; /* Subtle dark grey background */
+        color: #E0E0E0;
+        font-size: 18px;
+        padding: 14px;
+        width: 100%;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .card button:hover {
+        background-color: #616161; /* Slightly lighter grey for hover effect */
+        transform: scale(1.03);
+      }
+      .card button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3); /* Soft focus effect */
+      }
+      .code-container {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #1E1E1E;
+        color: #E0E0E0;
+        font-family: "Courier New", Courier, monospace;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        border-radius: 5px;
+        display: none;
+        width: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+      .code-container pre {
+        margin: 0;
+      }
     </style>
-</head>
-<body>
-
-    <h1>Practical Code Viewer</h1>
-
+  </head>
+  <body>
     <div class="container">
-        <!-- Practical Buttons -->
-        <div class="card">
-            <button onclick="showCode('practical1A')">Practical 1A: TCP Client-Server Communication</button>
-            <div class="code-container" id="practical1A">
-                <pre>
-                    // Insert code for Practical 1A here
-                    public class TCPClientServer { ... }
-                </pre>
-                <button class="copy-btn" onclick="copyCode('practical1A')">Copy Code</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <button onclick="showCode('practical1B')">Practical 1B: TCP Chatting Application</button>
-            <div class="code-container" id="practical1B">
-                <pre>
-                    // Insert code for Practical 1B here
-                    public class TCPChatServer { ... }
-                </pre>
-                <button class="copy-btn" onclick="copyCode('practical1B')">Copy Code</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <button onclick="showCode('practical2A')">Practical 2A: UDP Even Odd Number</button>
-            <div class="code-container" id="practical2A">
-                <pre>
-                    // Insert code for Practical 2A here
-                    public class UDPEvenOdd { ... }
-                </pre>
-                <button class="copy-btn" onclick="copyCode('practical2A')">Copy Code</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <button onclick="showCode('practical2B')">Practical 2B: UDP Factorial</button>
-            <div class="code-container" id="practical2B">
-                <pre>
-                    // Insert code for Practical 2B here
-                    public class UDPFactorial { ... }
-                </pre>
-                <button class="copy-btn" onclick="copyCode('practical2B')">Copy Code</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <button onclick="showCode('practical2C')">Practical 2C: Simple Calculator</button>
-            <div class="code-container" id="practical2C">
-                <pre>
-                    // Insert code for Practical 2C here
-                    public class SimpleCalculator { ... }
-                </pre>
-                <button class="copy-btn" onclick="copyCode('practical2C')">Copy Code</button>
-            </div>
-        </div>
-
-        <!-- Add more buttons as needed for additional practicals -->
+      <!-- Practical Buttons -->
+      <div class="card">
+        <button onclick="copyCode('practical1')">practical1: Demonstrate the Fundamentals of Computers (IP Address and MAC Address)</button>
+        <div class="code-container" id="practical1"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical2')">practical2: Perform Social Engineering Attack Using SEToolkit</button>
+        <div class="code-container" id="practical2"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical3')">practical3: Create a Brute Force Wordlist Using CUPP</button>
+        <div class="code-container" id="practical3"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical4')">practical4: Use S-Tools to Demonstrate Steganography</button>
+        <div class="code-container" id="practical4"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical5')">practical5: Create a Virus Using msfvenom</button>
+        <div class="code-container" id="practical5"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical6')">practical6: Use PuTTY and SSH to Demonstrate File Transfer</button>
+        <div class="code-container" id="practical6"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical7A')">practical7A: Check Data Integrity Using Simple Parity Check</button>
+        <div class="code-container" id="practical7A"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical7B')">practical7B: Check Data Integrity Using 2D Parity Check</button>
+        <div class="code-container" id="practical7B"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical8')">practical8: Simulate a Buffer Overflow Attack</button>
+        <div class="code-container" id="practical8"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical9')">practical9: Implement Network Scanning Using Zenmap</button>
+        <div class="code-container" id="practical9"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical10')">practical10: Examine SSH and Telnet Vulnerabilities</button>
+        <div class="code-container" id="practical10"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical11')">practical11: Use Netcraft for Information Gathering</button>
+        <div class="code-container" id="practical11"></div>
+      </div>
+      <div class="card">
+        <button onclick="copyCode('practical12')">practical12: Implement Network Tools</button>
+        <div class="code-container" id="practical12"></div>
+      </div>
     </div>
-
     <script>
-        function showCode(practicalId) {
-            // Hide all other code blocks
-            let allCodes = document.querySelectorAll('.code-container');
-            allCodes.forEach(code => code.style.display = 'none');
-
-            // Show the selected code block
-            let codeBlock = document.getElementById(practicalId);
-            codeBlock.style.display = 'block';
-
-            // Show the copy button
-            let copyButton = codeBlock.querySelector('.copy-btn');
-            copyButton.style.display = 'inline-block';
-        }
-
-        function copyCode(practicalId) {
-            let codeBlock = document.getElementById(practicalId).querySelector('pre');
-            let textToCopy = codeBlock.innerText;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("Code copied to clipboard!");
-            }, () => {
-                alert("Failed to copy code.");
-            });
-        }
-    </script>
-
-</body>
-</html>
+      // Store all practical codes as JavaScript objects
+      const codeBlocks = {
+          practical1: `Practical 1: Demonstrate the Fundamentals of Computers (IP Address and MAC Address)
+      
+      1. **Check IP Address**:
+      - Open Command Prompt (Windows).
+      - Type: ipconfig
+      - Press Enter to see your IP address.
+      
+      2. **Check MAC Address**:
+      - In Command Prompt, type:
+      getmac /v /fo list
+      - Press Enter to display the MAC address.`,
+          practical2: `Practical 2: Perform Social Engineering Attack Using SEToolkit
+      
+      1. Open PowerShell and run the following command to check your IP address:
+      ipconfig
+      2. Start Kali Linux and open the root terminal.
+      3. Run the Social Engineering Toolkit:
+      setoolkit
+      4. From the menu:
+      - Type '1': Social-Engineering Attacks.
+      - Type '2': Website Attack Vectors.
+      - Type '3': Credential Harvester Attack Method.
+      - Type '2': Site Cloner.
+      5. Enter your IP address and the URL of the website to clone.
+      6. Paste the IP address into any browser, enter credentials, and click Login.
+      7. Check the terminal to validate captured credentials.`,
+          practical3: `Practical 3: Create a Brute Force Wordlist Using CUPP
+      
+      1. Clone CUPP from GitHub:
+      git clone https://github.com/Mebus/cupp.git
+      2. Navigate to the CUPP folder:
+      cd cupp
+      3. Run CUPP in interactive mode:
+      python3 cupp.py -i
+      4. Follow the prompts to generate a wordlist.
+      5. Verify the generated wordlist by listing files:
+      ls
+      6. Open the wordlist using any editor (e.g., nano or cat):
+      cat <wordlist_name>`,
+          practical4: `Practical 4: Use S-Tools to Demonstrate Steganography
+      
+      1. Download and open S-Tools.
+      2. Drag and drop a '.bmp' image into S-Tools (download one if unavailable).
+      3. Create and save a text file (e.g., in Word or Notepad).
+      4. Drag and drop the text file into S-Tools, then enter a passphrase.
+      5. Save the duplicate image created by S-Tools.
+      6. Delete the original text file.
+      7. Drag
