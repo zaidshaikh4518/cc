@@ -3,10 +3,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My GitHub Page</title>
+  <title>Practical Codes</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #007BFF;
+    }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    /* Buttons */
+    .practical-button {
+      padding: 15px 25px;
+      border: none;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #007BFF, #0056b3);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .practical-button:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(135deg, #0056b3, #004085);
+    }
+
+    .practical-button:active {
+      transform: translateY(2px);
+    }
+
+    .notification {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to My GitHub Page!</h1>
-  <p>This page was created directly on GitHub.</p>
+  <div class="container">
+    <h1>Cloud Computing Practicals</h1>
+    <div class="button-container">
+      <!-- Buttons for each practical -->
+      <button class="practical-button" onclick="copyCode('tcpServerClient')">Practical 1A: TCP Client-Server</button>
+      <button class="practical-button" onclick="copyCode('tcpChatApp')">Practical 1B: TCP Chat App</button>
+      <button class="practical-button" onclick="copyCode('udpEvenOdd')">Practical 2A: UDP Even/Odd</button>
+      <button class="practical-button" onclick="copyCode('udpFactorial')">Practical 2B: UDP Factorial</button>
+      <button class="practical-button" onclick="copyCode('multicast')">Practical 3: Multicast Socket</button>
+    </div>
+    <div class="notification" id="notification">
+      Code copied to clipboard!
+    </div>
+  </div>
+
+  <script>
+    // JavaScript to copy code snippets
+    const codeSnippets = {
+      tcpServerClient: `import java.net.*;\nimport java.io.*;\n\n// TCP Server\npublic class TCPServer { /* Code here */ }\n\n// TCP Client\npublic class TCPClient { /* Code here */ }`,
+      tcpChatApp: `import java.net.*;\nimport java.io.*;\n\n// Chat Server\npublic class ChatServer { /* Code here */ }\n\n// Chat Client\npublic class ChatClient { /* Code here */ }`,
+      udpEvenOdd: `import java.net.*;\n\n// UDP Server\npublic class UDPServer { /* Code here */ }\n\n// UDP Client\npublic class UDPClient { /* Code here */ }`,
+      udpFactorial: `import java.net.*;\n\n// Factorial UDP Server\npublic class UDPFactorialServer { /* Code here */ }\n\n// Factorial UDP Client\npublic class UDPFactorialClient { /* Code here */ }`,
+      multicast: `import java.net.*;\n\n// Multicast Server\npublic class MulticastServer { /* Code here */ }\n\n// Multicast Client\npublic class MulticastClient { /* Code here */ }`
+    };
+
+    function copyCode(practicalKey) {
+      // Copy the code snippet to clipboard
+      const code = codeSnippets[practicalKey];
+      navigator.clipboard.writeText(code).then(() => {
+        // Show notification
+        const notification = document.getElementById("notification");
+        notification.style.display = "block";
+        setTimeout(() => {
+          notification.style.display = "none";
+        }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>
