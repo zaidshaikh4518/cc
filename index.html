@@ -1,109 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Practical Codes</title>
-  <style>
-    /* General Styling */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa;
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical Code Viewer</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 50px auto;
-      text-align: center;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #007BFF;
-    }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
 
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-    }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    /* Buttons */
-    .practical-button {
-      padding: 15px 25px;
-      border: none;
-      border-radius: 5px;
-      background: linear-gradient(135deg, #007BFF, #0056b3);
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+        .card {
+            background-color: #fff;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .practical-button:hover {
-      transform: translateY(-3px);
-      background: linear-gradient(135deg, #0056b3, #004085);
-    }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-    .practical-button:active {
-      transform: translateY(2px);
-    }
+        .card button {
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    .notification {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-      border-radius: 5px;
-      display: none;
-    }
-  </style>
+        .card button:hover {
+            background-color: #0056b3;
+        }
+
+        .code-container {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            font-family: "Courier New", Courier, monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-radius: 5px;
+            display: none;
+            width: 100%;
+        }
+
+        .copy-btn {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .copy-btn:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Cloud Computing Practicals</h1>
-    <div class="button-container">
-      <!-- Buttons for each practical -->
-      <button class="practical-button" onclick="copyCode('tcpServerClient')">Practical 1A: TCP Client-Server</button>
-      <button class="practical-button" onclick="copyCode('tcpChatApp')">Practical 1B: TCP Chat App</button>
-      <button class="practical-button" onclick="copyCode('udpEvenOdd')">Practical 2A: UDP Even/Odd</button>
-      <button class="practical-button" onclick="copyCode('udpFactorial')">Practical 2B: UDP Factorial</button>
-      <button class="practical-button" onclick="copyCode('multicast')">Practical 3: Multicast Socket</button>
-    </div>
-    <div class="notification" id="notification">
-      Code copied to clipboard!
-    </div>
-  </div>
 
-  <script>
-    // JavaScript to copy code snippets
-    const codeSnippets = {
-      tcpServerClient: `import java.net.*;\nimport java.io.*;\n\n// TCP Server\npublic class TCPServer { /* Code here */ }\n\n// TCP Client\npublic class TCPClient { /* Code here */ }`,
-      tcpChatApp: `import java.net.*;\nimport java.io.*;\n\n// Chat Server\npublic class ChatServer { /* Code here */ }\n\n// Chat Client\npublic class ChatClient { /* Code here */ }`,
-      udpEvenOdd: `import java.net.*;\n\n// UDP Server\npublic class UDPServer { /* Code here */ }\n\n// UDP Client\npublic class UDPClient { /* Code here */ }`,
-      udpFactorial: `import java.net.*;\n\n// Factorial UDP Server\npublic class UDPFactorialServer { /* Code here */ }\n\n// Factorial UDP Client\npublic class UDPFactorialClient { /* Code here */ }`,
-      multicast: `import java.net.*;\n\n// Multicast Server\npublic class MulticastServer { /* Code here */ }\n\n// Multicast Client\npublic class MulticastClient { /* Code here */ }`
-    };
+    <h1>Practical Code Viewer</h1>
 
-    function copyCode(practicalKey) {
-      // Copy the code snippet to clipboard
-      const code = codeSnippets[practicalKey];
-      navigator.clipboard.writeText(code).then(() => {
-        // Show notification
-        const notification = document.getElementById("notification");
-        notification.style.display = "block";
-        setTimeout(() => {
-          notification.style.display = "none";
-        }, 2000);
-      });
-    }
-  </script>
+    <div class="container">
+        <!-- Practical Buttons -->
+        <div class="card">
+            <button onclick="showCode('practical1A')">Practical 1A: TCP Client-Server Communication</button>
+            <div class="code-container" id="practical1A">
+                <pre>
+                    // Insert code for Practical 1A here
+                    public class TCPClientServer { ... }
+                </pre>
+                <button class="copy-btn" onclick="copyCode('practical1A')">Copy Code</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <button onclick="showCode('practical1B')">Practical 1B: TCP Chatting Application</button>
+            <div class="code-container" id="practical1B">
+                <pre>
+                    // Insert code for Practical 1B here
+                    public class TCPChatServer { ... }
+                </pre>
+                <button class="copy-btn" onclick="copyCode('practical1B')">Copy Code</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <button onclick="showCode('practical2A')">Practical 2A: UDP Even Odd Number</button>
+            <div class="code-container" id="practical2A">
+                <pre>
+                    // Insert code for Practical 2A here
+                    public class UDPEvenOdd { ... }
+                </pre>
+                <button class="copy-btn" onclick="copyCode('practical2A')">Copy Code</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <button onclick="showCode('practical2B')">Practical 2B: UDP Factorial</button>
+            <div class="code-container" id="practical2B">
+                <pre>
+                    // Insert code for Practical 2B here
+                    public class UDPFactorial { ... }
+                </pre>
+                <button class="copy-btn" onclick="copyCode('practical2B')">Copy Code</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <button onclick="showCode('practical2C')">Practical 2C: Simple Calculator</button>
+            <div class="code-container" id="practical2C">
+                <pre>
+                    // Insert code for Practical 2C here
+                    public class SimpleCalculator { ... }
+                </pre>
+                <button class="copy-btn" onclick="copyCode('practical2C')">Copy Code</button>
+            </div>
+        </div>
+
+        <!-- Add more buttons as needed for additional practicals -->
+    </div>
+
+    <script>
+        function showCode(practicalId) {
+            // Hide all other code blocks
+            let allCodes = document.querySelectorAll('.code-container');
+            allCodes.forEach(code => code.style.display = 'none');
+
+            // Show the selected code block
+            let codeBlock = document.getElementById(practicalId);
+            codeBlock.style.display = 'block';
+
+            // Show the copy button
+            let copyButton = codeBlock.querySelector('.copy-btn');
+            copyButton.style.display = 'inline-block';
+        }
+
+        function copyCode(practicalId) {
+            let codeBlock = document.getElementById(practicalId).querySelector('pre');
+            let textToCopy = codeBlock.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Code copied to clipboard!");
+            }, () => {
+                alert("Failed to copy code.");
+            });
+        }
+    </script>
+
 </body>
 </html>
